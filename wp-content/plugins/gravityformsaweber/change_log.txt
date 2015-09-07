@@ -1,0 +1,73 @@
+------------------------------------------------
+Version 2.3
+    - Added form and field specific versions of the gform_aweber_field_value filter.
+    - Updated minimum Gravity Forms version to 1.9.3.
+    - Updated feed processing to use GFAddOn::get_field_value(), if available, when retrieving mapped field values.
+    - Updated 'Opt-In Condition' setting label to 'Conditional Logic'.
+    - Fixed an issue with the feed list page if the AWeber auth code was not valid.
+    - Fixed an issue with the upgrade routine which caused it run even if a pre-framework version hadn't been installed.
+
+------------------------------------------------
+Version 2.2
+    - Added hook to allow args to be changed before sending submission to AWeber
+		add_filter('gform_aweber_args_pre_subscribe', 'add_ip', 10, 4);
+        function add_ip( $args, $form, $entry, $feed ){
+        	$args['ip_address'] = $entry['ip'];
+        	return $args;
+        }
+    - Added support for the middle name input when preparing Name field values.
+    - Updated how Address field values are prepared to also support Gravity Forms 1.9 method for getting country code.
+    - Updated logging statements.
+	- Fixed a low severity security vulnerability in the admin area which could be exploited by authenticated users with form administration permissions.
+	- Fixed issues when upgrading causing feeds not to get created
+
+------------------------------------------------
+Version 2.1
+	- Fixed error when creating new feeds.
+
+------------------------------------------------
+Version 2.0
+	- Added integration with Add-On Framework
+	- Added text domain/path to header
+    - Added the gform_aweber_field_value filter so the field value can be modified before sending to AWeber
+	- Updated required version of Gravity Forms to 1.8.17
+	- Updated POT file
+	- Updated to not process entries marked as spam
+    - Fixed an issue where non-string field values would cause the AWeber create subscriber process to fail
+
+---------------------------------------------------------------------------------
+Version 1.4
+	- Added PayPal integration to subscribe user to AWeber only when payment is received
+	- Updated the AJAX Url to resolve conflicts with sites running over HTTPS
+    - Fixed issue where spaces after closing php tag caused problems with WP 3.5 release
+
+---------------------------------------------------------------------------------
+Version 1.3
+	- Added logging support
+    - Added new conditional logic options (greater than, less than, contains starts with, ends with) and support for other conditional fields
+    - Fixed notices
+    - Fixed issue with API throwing errors on some PHP installations
+
+---------------------------------------------------------------------------------
+Version 1.2
+    - Fixed issue with Full Name field not being sent to AWeber when mapped to custom fields
+
+---------------------------------------------------------------------------------
+Version 1.1
+    - Updated PHP API and using it to subscribe users instead of relying on email
+    - Added support for field mapping
+    - Added hook to allow custom Ad Tracking text to be assigned to the subscriber
+
+        add_filter("gform_aweber_ad_tracking", "aweber_ad_tracking", 10, 4); //site wide ad tracking
+        OR
+        add_filter("gform_aweber_ad_tracking_20", "aweber_ad_tracking", 10, 4); //form specific ad tracking
+
+        function aweber_ad_tracking($ad_tracking, $entry, $form, $feed){
+            return "Custom Ad Tracking";
+        }
+
+
+
+====================================================================================================================================
+IMPORTANT NOTE: $_collectionMap property in api/aweber.php line 82 has been made public to resolve errors on some PHP installations. When updating API, make sure to re-apply change
+====================================================================================================================================

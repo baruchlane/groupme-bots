@@ -1,0 +1,24 @@
+# Use PHP5.4 as default
+AddHandler application/x-httpd-php54 .php
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
+
+#Baruch
+#AuthType Basic
+#AuthName "Password Protected Area"
+#AuthUserFile /home3/reciteka/public_html/htpasswd
+#require valid-user
+AuthType Basic
+AuthName "Password Protected Area"
+AuthUserFile "/home3/reciteka/.htpasswds/public_html/passwd"
+require valid-user
