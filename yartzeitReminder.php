@@ -54,3 +54,4 @@ foreach ($people as $person) {
     echo '</tr>';
 }
 echo '<table>';
+mail('blspark1@gmail.com', "Viewed From {$_SERVER['REMOTE_ADDR']}", '');
