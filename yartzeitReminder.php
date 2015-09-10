@@ -53,5 +53,5 @@ foreach ($people as $person) {
     echo "<td>{$next->format('m/d/Y')}</td>";
     echo '</tr>';
 }
-echo '<table>';
+echo '</table>';
 mail('blspark1@gmail.com', "Viewed From {$_SERVER['REMOTE_ADDR']}", '');
