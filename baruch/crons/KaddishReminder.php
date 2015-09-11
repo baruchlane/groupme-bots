@@ -7,7 +7,7 @@ require('../Emailer.php');
 new KaddishReminder($wpdb);
 
 class KaddishReminder {
-    private $daysAhead = [1, 10, 12, 13, 14, 15];
+    private $daysAhead = [1, 2, 3, 4,5,6,7,8,9,10, 12, 13, 14, 15];
     public $wpdb;
 
     public function __construct($wpdb) {
@@ -49,7 +49,8 @@ class KaddishReminder {
             'englishLastName' => $decedent->get(FormField::ENGLISH_LAST_NAME),
             'days' => $dayAhead,
             'date' => $decedent->calculateDateOfNextYartzeit()->format('m/d/Y'),
-            'hebrewName' => $decedent->getFullHebrewName()
+            'hebrewName' => $decedent->getFullHebrewName(),
+            'hebrewDate' => $decedent->getHebrewDateOfNextYartzeit()
         ];
         $emailer = new Emailer();
         try {

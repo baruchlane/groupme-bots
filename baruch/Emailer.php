@@ -14,7 +14,7 @@ class Emailer {
 
     public function send($address, $subject) {
         if ($this->active) {
-            mail($address, $subject, $this->template->render($this->data), $this->getHeaders());
+            mail('baruch.lane@gmail.com', $subject, $this->template->render($this->data), $this->getHeaders());
         } else {
             echo $this->template->render($this->data);
         }

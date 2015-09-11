@@ -1,6 +1,7 @@
 <?php
 
 require('FormField.php');
+require('HebrewDate.php');
 
 class Decedent {
     private $fields = [];
@@ -20,6 +21,10 @@ class Decedent {
 
     public function get($fieldName) {
         return $this->getValue($fieldName);
+    }
+
+    public function getHebrewDateOfNextYartzeit() {
+        return new HebrewDate($this->calculateDateOfNextYartzeit());
     }
 
     public function calculateDateOfNextYartzeit() {
