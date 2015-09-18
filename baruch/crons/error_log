@@ -1,0 +1,2 @@
+[17-Sep-2015 18:48:03 America/Denver] PHP Warning:  mail() expects parameter 3 to be string, object given in /home3/reciteka/public_html/baruch/crons/test.php on line 2
+[18-Sep-2015 02:00:30 UTC] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home3/reciteka/public_html/baruch/Decedent.php on line 36

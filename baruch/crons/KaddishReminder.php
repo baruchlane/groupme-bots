@@ -1,4 +1,8 @@
 <?php
+if ( php_sapi_name() !== 'cli' ) {
+//    die("Meant to be run from command line");
+}
+
 chdir(dirname(__FILE__));
 require('../Decedent.php');
 require('loadWp.php');
@@ -7,7 +11,7 @@ require('../Emailer.php');
 new KaddishReminder($wpdb);
 
 class KaddishReminder {
-    private $daysAhead = [1, 2, 3, 4,5,6,7,8,9,10, 12, 13, 14, 15];
+    private $daysAhead = [1, 10];
     public $wpdb;
 
     public function __construct($wpdb) {

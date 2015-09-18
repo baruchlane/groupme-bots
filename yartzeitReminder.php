@@ -20,7 +20,7 @@ global $wp, $wp_query, $wp_the_query, $wp_rewrite, $wp_did_header;
 require(BASE_PATH . 'wp-load.php');
 
 $a = 1;
-$ignore = [6.3, 6.6, 7, 8, 9, 10, 20];
+$ignore = [6.3, 6.6, 7, 8, 9, 10, 15, 20];
 $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}rg_lead_detail ORDER BY lead_id, field_number");
 $fields = ['first','last', 'email', 'relation', 'death', 'night'];
 $people = [];
@@ -54,4 +54,4 @@ foreach ($people as $person) {
     echo '</tr>';
 }
 echo '</table>';
-mail('blspark1@gmail.com', "Viewed From {$_SERVER['REMOTE_ADDR']}", '');
+//mail('blspark1@gmail.com', "Viewed From {$_SERVER['REMOTE_ADDR']}", '');
