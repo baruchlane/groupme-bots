@@ -1,17 +1,12 @@
 <?php
-if ( php_sapi_name() !== 'cli' ) {
-    die("Meant to be run from command line");
-}
-
 chdir(dirname(__FILE__));
 require('../Decedent.php');
 require('loadWp.php');
 require('../Emailer.php');
-
 new KaddishReminder($wpdb);
 
 class KaddishReminder {
-    private $daysAhead = [1, 10];
+    private $daysAhead = array(1, 10);
     public $wpdb;
 
     public function __construct($wpdb) {
@@ -34,7 +29,7 @@ class KaddishReminder {
     }
 
     public function getDecedents() {
-        $decedents = [];
+        $decedents = array();
         $results = $this->wpdb->get_results("SELECT * FROM {$this->wpdb->prefix}rg_lead_detail ORDER BY lead_id, field_number");
         foreach ($results as $result) {
             if (!isset($decedents[$result->lead_id])) {
@@ -46,7 +41,7 @@ class KaddishReminder {
     }
 
     public function sendReminder(Decedent $decedent, $dayAhead = null) {
-        $data = [
+        $data = array(
             'contactFirstName' => $decedent->get(Decedent::CONTACT_FIRST_NAME),
             'relation' => $decedent->get(Decedent::RELATION),
             'englishFirstName' => $decedent->get(Decedent::ENGLISH_FIRST_NAME),
@@ -55,7 +50,7 @@ class KaddishReminder {
             'date' => $decedent->getDateOfNextYartzeit()->format('m/d/Y'),
             'hebrewName' => $decedent->getFullHebrewName(),
             'hebrewDate' => $decedent->getHebrewDateOfNextYartzeit()
-        ];
+        );
         $emailer = new Emailer();
         try {
             $emailer->prepare('yartzeitReminder', $data);

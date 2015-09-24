@@ -12,7 +12,7 @@ class Template {
         $this->template = file_get_contents($templatePath);
     }
 
-    public function render(array $data = []) {
+    public function render(array $data = array()) {
         $templateInstance = $this->template;
         foreach ($data as $k => $v) {
             $templateInstance = preg_replace("/~$k~/", esc_html($v), $templateInstance);

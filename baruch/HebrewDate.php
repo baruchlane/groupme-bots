@@ -5,7 +5,7 @@ class HebrewDate {
     private $day;
     private $year;
 
-    private static $monthNames = ['', 'Tishrei', 'Cheshvan', 'Kislev', 'Tevet', 'Shvat', 'Adar', 'Adar II', 'Nissan', 'Iyar', 'Sivan', 'Tammuz', 'Av', 'Elul'];
+    private static $monthNames = array('', 'Tishrei', 'Cheshvan', 'Kislev', 'Tevet', 'Shvat', 'Adar', 'Adar II', 'Nissan', 'Iyar', 'Sivan', 'Tammuz', 'Av', 'Elul');
 
     //(7y+1) mod 19 < 7
     public function __construct(DateTime $date = null) {

@@ -1,10 +1,8 @@
 <?php
-
 require('FormField.php');
 require('HebrewDate.php');
-
 class Decedent {
-    private $fields = [];
+    private $fields = array();
     const CONTACT_FIRST_NAME = 'contactFirstName';
     const CONTACT_LAST_NAME = 'contactLastName';
     const CONTACT_EMAIL = 'contactEmail';
@@ -23,7 +21,7 @@ class Decedent {
     }
 
     public function set($key, $value) {
-        if (method_exists(Decedent::class, 'set'. $key)) {
+        if (method_exists(Decedent, 'set'. $key)) {
             $methodName = 'set' . $key;
             $this->$methodName($value);
         }

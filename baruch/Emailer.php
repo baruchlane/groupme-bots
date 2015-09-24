@@ -7,7 +7,7 @@ class Emailer {
     private $data;
     private $active = true;
 
-    public function prepare($templateName, array $data = []) {
+    public function prepare($templateName, array $data = array()) {
         $this->template = new Template($templateName);
         $this->data = $data;
     }

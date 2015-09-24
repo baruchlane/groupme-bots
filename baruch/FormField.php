@@ -1,6 +1,6 @@
 <?php
 class FormField {
-    private static $fieldNames = [
+    private static $fieldNames = array(
         '2.3' => Decedent::CONTACT_FIRST_NAME,
         '2.6' => Decedent::CONTACT_LAST_NAME,
         '3' => Decedent::CONTACT_EMAIL,
@@ -13,7 +13,7 @@ class FormField {
         '10' => Decedent::LINEAGE,
         '12' => Decedent::ENGLISH_DEATH_DATE,
         '13' => Decedent::DAY_NIGHT
-    ];
+    );
     private $fieldName;
 
     private $value;
