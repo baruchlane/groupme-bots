@@ -5,7 +5,7 @@ class Emailer {
     /** @var Template $template */
     private $template;
     private $data;
-    private $active = false;
+    private $active = true;
 
     public function prepare($templateName, array $data = []) {
         $this->template = new Template($templateName);
@@ -23,7 +23,7 @@ class Emailer {
 
     private function getHeaders() {
         return "Return-Path: reminders@recitekaddish.com  \r\n" .
-        	"From: ReciteKaddish <reminders$recitekaddish.com> \r\n" .
+        	"From: ReciteKaddish <reminders@recitekaddish.com> \r\n" .
         	'X-Priority: 3' . "\r\n" .
         	'X-Mailer: PHP ' . phpversion() .  "\r\n" .
         	"Reply-To: ReciteKaddish <reminders@recitekaddish.com> \r\n" .

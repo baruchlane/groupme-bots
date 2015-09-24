@@ -5,9 +5,32 @@ require('HebrewDate.php');
 
 class Decedent {
     private $fields = [];
+    const CONTACT_FIRST_NAME = 'contactFirstName';
+    const CONTACT_LAST_NAME = 'contactLastName';
+    const CONTACT_EMAIL = 'contactEmail';
+    const RELATION = 'relation';
+    const ENGLISH_FIRST_NAME = 'englishFirstName';
+    const ENGLISH_LAST_NAME = 'englishLastName';
+    const HEBREW_NAME = 'hebrewName';
+    const GENDER = 'gender';
+    const FATHERS_HEBREW_NAME = 'fathersHebrewName';
+    const LINEAGE = 'lineage';
+    const ENGLISH_DEATH_DATE = 'englishDeathDate';
+    const DAY_NIGHT = 'daynight';
 
     public function __construct() {
 
+    }
+
+    public function set($key, $value) {
+        if (method_exists(Decedent::class, 'set'. $key)) {
+            $methodName = 'set' . $key;
+            $this->$methodName($value);
+        }
+        else {
+            $this->fields[$key] = $value;
+        }
+        return $this;
     }
 
     public function addField(FormField $field) {
@@ -23,24 +46,23 @@ class Decedent {
         return $this->getValue($fieldName);
     }
 
-    public function getHebrewDateOfNextYartzeit() {
-        return new HebrewDate($this->calculateDateOfNextYartzeit());
+    public function getDateOfNextYartzeit() {
+        return $this->getHebrewDateOfNextYartzeit()->toDateTime();
     }
 
-    public function calculateDateOfNextYartzeit() {
-        list($gregYear, $gregMonth, $gregDay) = explode('-', $this->getValue(FormField::ENGLISH_DEATH_DATE));
-        if ($this->getValue(FormField::DAY_NIGHT) != 'Before Sunset') {
-            $gregDay++;
+    public function getHebrewDateOfNextYartzeit() {
+        $hebrewDate = new HebrewDate(new DateTime($this->get(self::ENGLISH_DEATH_DATE)));
+        $now = new HebrewDate();
+        while ($now->compare($hebrewDate) > 0) {
+            $hebrewDate->addYear();
         }
-        list($hebMonth, $hebDay, $hebYear) = explode('/', jdtojewish(gregoriantojd($gregMonth, $gregDay, $gregYear)));
-        while (($next = new \DateTime(jdtogregorian(jewishtojd($hebMonth, $hebDay, $hebYear++)))) < (new \DateTime()));
-        return $next;
+        return $hebrewDate;
     }
 
     public function getFullHebrewName() {
-        $name = $this->get(FormField::HEBREW_NAME);
-        $name .= $this->get(FormField::GENDER) == 'Male' ? ' ben ' : ' bat ';
-        $name .= $this->get(FormField::FATHERS_HEBREW_NAME);
+        $name = $this->get(self::HEBREW_NAME);
+        $name .= $this->get(self::GENDER) == 'Male' ? ' ben ' : ' bat ';
+        $name .= $this->get(self::FATHERS_HEBREW_NAME);
         return $name;
     }
 }

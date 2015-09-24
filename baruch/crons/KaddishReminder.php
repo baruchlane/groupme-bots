@@ -1,6 +1,6 @@
 <?php
 if ( php_sapi_name() !== 'cli' ) {
-//    die("Meant to be run from command line");
+    die("Meant to be run from command line");
 }
 
 chdir(dirname(__FILE__));
@@ -23,7 +23,7 @@ class KaddishReminder {
         $decedents = $this->getDecedents();
         /** @var Decedent $decedent */
         foreach ($decedents as $decedent) {
-            $nextYartzeit = $decedent->calculateDateOfNextYartzeit();
+            $nextYartzeit = $decedent->getDateOfNextYartzeit();
             foreach($this->daysAhead as $dayAhead) {
                 $future = new DateTime("+$dayAhead days midnight");
                 if ($nextYartzeit == $future) {
@@ -47,19 +47,19 @@ class KaddishReminder {
 
     public function sendReminder(Decedent $decedent, $dayAhead = null) {
         $data = [
-            'contactFirstName' => $decedent->get(FormField::CONTACT_FIRST_NAME),
-            'relation' => $decedent->get(FormField::RELATION),
-            'englishFirstName' => $decedent->get(FormField::ENGLISH_FIRST_NAME),
-            'englishLastName' => $decedent->get(FormField::ENGLISH_LAST_NAME),
+            'contactFirstName' => $decedent->get(Decedent::CONTACT_FIRST_NAME),
+            'relation' => $decedent->get(Decedent::RELATION),
+            'englishFirstName' => $decedent->get(Decedent::ENGLISH_FIRST_NAME),
+            'englishLastName' => $decedent->get(Decedent::ENGLISH_LAST_NAME),
             'days' => $dayAhead,
-            'date' => $decedent->calculateDateOfNextYartzeit()->format('m/d/Y'),
+            'date' => $decedent->getDateOfNextYartzeit()->format('m/d/Y'),
             'hebrewName' => $decedent->getFullHebrewName(),
             'hebrewDate' => $decedent->getHebrewDateOfNextYartzeit()
         ];
         $emailer = new Emailer();
         try {
             $emailer->prepare('yartzeitReminder', $data);
-            $emailer->send($decedent->get(FormField::CONTACT_EMAIL), 'Yartzeit Reminder');
+            $emailer->send($decedent->get(Decedent::CONTACT_EMAIL), 'Yartzeit Reminder');
         } catch (Exception $e) {
             echo $e->getMessage();
         }
