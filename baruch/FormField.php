@@ -12,7 +12,8 @@ class FormField {
         '9' => Decedent::FATHERS_HEBREW_NAME,
         '10' => Decedent::LINEAGE,
         '12' => Decedent::ENGLISH_DEATH_DATE,
-        '13' => Decedent::DAY_NIGHT
+        '13' => Decedent::DAY_NIGHT,
+        '15' => Decedent::DAYS_BEFORE
     );
     private $fieldName;
 

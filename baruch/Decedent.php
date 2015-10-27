@@ -15,6 +15,7 @@ class Decedent {
     const LINEAGE = 'lineage';
     const ENGLISH_DEATH_DATE = 'englishDeathDate';
     const DAY_NIGHT = 'daynight';
+    const DAYS_BEFORE = 'daysBefore';
 
     public function __construct() {
 

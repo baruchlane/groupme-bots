@@ -6,7 +6,7 @@ require('../Emailer.php');
 new KaddishReminder($wpdb);
 
 class KaddishReminder {
-    private $daysAhead = array(1, 10);
+    private $daysAhead = array(1);
     public $wpdb;
 
     public function __construct($wpdb) {
@@ -19,7 +19,11 @@ class KaddishReminder {
         /** @var Decedent $decedent */
         foreach ($decedents as $decedent) {
             $nextYartzeit = $decedent->getDateOfNextYartzeit();
-            foreach($this->daysAhead as $dayAhead) {
+            $daysAhead = [1];
+            if ($decedent->get(Decedent::DAYS_BEFORE)) {
+                $daysAhead[] = $decedent->get(Decedent::DAYS_BEFORE);
+            }
+            foreach($daysAhead as $dayAhead) {
                 $future = new DateTime("+$dayAhead days midnight");
                 if ($nextYartzeit == $future) {
                     $this->sendReminder($decedent, $dayAhead);
@@ -52,9 +56,10 @@ class KaddishReminder {
             'hebrewDate' => $decedent->getHebrewDateOfNextYartzeit()
         );
         $emailer = new Emailer();
+        $templateName = $dayAhead == 1 ? 'dayBeforeReminder' : 'yartzeitReminder';
         try {
-            $emailer->prepare('yartzeitReminder', $data);
-            $emailer->send($decedent->get(Decedent::CONTACT_EMAIL), 'Yartzeit Reminder');
+            $emailer->prepare($templateName, $data);
+            $emailer->send($decedent->get(Decedent::CONTACT_EMAIL), 'Yahrzeit Reminder');
         } catch (Exception $e) {
             echo $e->getMessage();
         }
