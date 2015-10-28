@@ -5,6 +5,7 @@ class Emailer {
     /** @var Template $template */
     private $template;
     private $data;
+    private $logFile = 'mailer.log';
     private $active = true;
 
     public function prepare($templateName, array $data = array()) {
@@ -15,9 +16,28 @@ class Emailer {
     public function send($address, $subject) {
         if ($this->active) {
 	    $headers = $this->getHeaders();
-            mail($address, $subject, $this->template->render($this->data), $headers, '-f reminders@recitekaddish.com');
+            $this->mail($address, $subject, $this->template->render($this->data), $headers, '-f reminders@recitekaddish.com');
         } else {
             echo $this->template->render($this->data);
+        }
+    }
+
+    protected function mail($address, $subject, $body, $headers, $options) {
+        $now = new \DateTime();
+        if (mail($address, $subject, $body, $headers, $options)) {
+            file_put_contents($this->logFile, $now->format('YYYY-mm-dd HH:ii:ss') . '> ' . json_encode(array(
+                    'address' => $address,
+                    'subject' => $subject,
+                    'body' => $body
+                ))
+            );
+        } else {
+            file_put_contents($this->logFile, $now->format('YYYY-mm-dd HH:ii:ss') . '> Failure: ' . json_encode(array(
+                    'address' => $address,
+                    'subject' => $subject,
+                    'body' => $body
+                ))
+            );
         }
     }
 
