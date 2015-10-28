@@ -19,7 +19,7 @@ class KaddishReminder {
         /** @var Decedent $decedent */
         foreach ($decedents as $decedent) {
             $nextYartzeit = $decedent->getDateOfNextYartzeit();
-            $daysAhead = [1];
+            $daysAhead = array(1);
             if ($decedent->get(Decedent::DAYS_BEFORE)) {
                 $daysAhead[] = $decedent->get(Decedent::DAYS_BEFORE);
             }
