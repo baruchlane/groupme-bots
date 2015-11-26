@@ -15,7 +15,7 @@ class Template {
     public function render(array $data = array()) {
         $templateInstance = $this->template;
         foreach ($data as $k => $v) {
-            $templateInstance = preg_replace("/~$k~/", esc_html($v), $templateInstance);
+            $templateInstance = preg_replace("/~$k~/", htmlspecialchars($v), $templateInstance);
         }
         return $templateInstance;
     }
