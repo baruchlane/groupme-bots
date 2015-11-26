@@ -65,6 +65,6 @@ class GroupMeService
         } catch (Exception $e) {
             die($e->getMessage());
         }
-        var_dump($response);
+        return $response;
     }
 }
