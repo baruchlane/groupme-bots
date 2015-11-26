@@ -74,13 +74,8 @@ class Reminder {
         $recipients = $this->db->get('recipients');
         $emailer = new Emailer();
         $subject = ucfirst($data['occasion']) . ' Reminder';
-<<<<<<< HEAD:src/Reminder.php
-        $templateName = $occasion !== 'week' ? 'weekBeforeReminder' : 'todayReminder';
-        $gmTemplateName = $occasion !== 'week' ? 'gmWeekReminder' : 'gmTodayReminder';
-=======
         $templateName = $occasion === 'week' ? 'weekBeforeReminder' : 'todayReminder';
         $gmTemplateName = $occasion === 'week' ? 'gmWeekReminder' : 'gmTodayReminder';
->>>>>>> f961b0de757563cdcf9825d62b55390407b99fa1:src/Reminder.php
         $data['date'] = $data['hebrew'] ?
             new HebrewDate($date) :
             $date->format('M d, Y');
