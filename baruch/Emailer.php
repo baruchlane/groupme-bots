@@ -33,14 +33,14 @@ class Emailer {
     protected function mail($address, $subject, $body, $headers, $options) {
         $now = new \DateTime();
         if (mail($address, $subject, $body, $headers, $options)) {
-            file_put_contents($this->logFile, $now->format('YYYY-mm-dd HH:ii:ss') . '> ' . json_encode(array(
+            file_put_contents($this->logFile, $now->format('Y-m-d H:i:s') . '> ' . json_encode(array(
                     'address' => $address,
                     'subject' => $subject,
                     'body' => $body
                 ))
             );
         } else {
-            file_put_contents($this->logFile, $now->format('YYYY-mm-dd HH:ii:ss') . '> Failure: ' . json_encode(array(
+            file_put_contents($this->logFile, $now->format('Y-m-d H:i:s') . '> Failure: ' . json_encode(array(
                     'address' => $address,
                     'subject' => $subject,
                     'body' => $body
