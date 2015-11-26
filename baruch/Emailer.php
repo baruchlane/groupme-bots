@@ -1,12 +1,20 @@
 <?php
 require('Template.php');
 
+
 class Emailer {
     /** @var Template $template */
     private $template;
     private $data;
     private $logFile = 'mailer.log';
     private $active = true;
+    protected $config;
+
+    public function __construct()
+    {
+        $this->config = Config::getConfig();
+        $this->active = $this->config->get('email_active');
+    }
 
     public function prepare($templateName, array $data = array()) {
         $this->template = new Template($templateName);
