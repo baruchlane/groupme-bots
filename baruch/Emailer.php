@@ -50,11 +50,11 @@ class Emailer {
     }
 
     private function getHeaders() {
-        return "Return-Path: reminders@recitekaddish.com  \r\n" .
-        	"From: ReciteKaddish <reminders@recitekaddish.com> \r\n" .
+        return "Return-Path: blspark1@gmail.com  \r\n" .
+        	"From: Lane Family Birthday Reminders <blspark1@gmail.com> \r\n" .
         	'X-Priority: 3' . "\r\n" .
         	'X-Mailer: PHP ' . phpversion() .  "\r\n" .
-        	"Reply-To: ReciteKaddish <reminders@recitekaddish.com> \r\n" .
+        	"Reply-To: Lane Family Birthday Reminders <blspark1@gmail.com> \r\n" .
         	'MIME-Version: 1.0' . "\r\n" .
         	'Content-Transfer-Encoding: 8bit' . "\r\n" .
         	'Content-Type: text/html; charset=UTF-8' . "\r\n";
