@@ -4,7 +4,7 @@ class Config {
     /**
      * @var string
      */
-    protected $configPath = 'configs/config.ini';
+    protected $configPath = '../configs/config.ini';
 
     /**
      * @var array

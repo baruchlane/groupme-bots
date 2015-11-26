@@ -1,20 +1,27 @@
 <?php
 ini_set('date.timezone', 'America/New_York');
 chdir(dirname(__FILE__));
-require('../HebrewDate.php');
-require('../Database.php');
-require('../Emailer.php');
-new BirthdayReminder();
+function __autoload($class_name)
+{
+    require_once $class_name . '.php';
+}
+new Reminder();
 
-class BirthdayReminder {
+class Reminder {
 
     /**
      * @var Database
      */
-    public $db;
+    protected $db;
+
+    /**
+     * @var GroupMeService
+     */
+    protected $gm;
 
     public function __construct() {
         $this->db = new Database();
+        $this->gm = new GroupMeService();
         $this->db->connect();
         $this->process();
     }
@@ -68,6 +75,7 @@ class BirthdayReminder {
         $emailer = new Emailer();
         $subject = ucfirst($data['occasion']) . ' Reminder';
         $templateName = $occasion !== 'week' ? 'weekBeforeReminder' : 'todayReminder';
+        $gmTemplateName = $occasion !== 'week' ? 'gmWeekReminder' : 'gmTodayReminder';
         $data['date'] = $data['hebrew'] ?
             new HebrewDate($date) :
             $date->format('M d, Y');
@@ -78,6 +86,13 @@ class BirthdayReminder {
             foreach ($recipients as $recipient) {
                 $emailer->send($recipient['email'], $subject);
             }
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        try {
+            $this->gm->prepareMessage($gmTemplateName)
+                ->sendMessage($data);
         } catch (Exception $e) {
             echo $e->getMessage();
         }

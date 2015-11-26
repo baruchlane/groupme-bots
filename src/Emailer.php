@@ -1,6 +1,4 @@
 <?php
-require('Template.php');
-
 
 class Emailer {
     /** @var Template $template */
@@ -24,7 +22,7 @@ class Emailer {
     public function send($address, $subject) {
         if ($this->active) {
 	    $headers = $this->getHeaders();
-            $this->mail($address, $subject, $this->template->render($this->data), $headers, '-f reminders@recitekaddish.com');
+            $this->mail($address, $subject, $this->template->render($this->data), $headers, '-f blspark1@gmail.com');
         } else {
             echo $this->template->render($this->data);
         }
