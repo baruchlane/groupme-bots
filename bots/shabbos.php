@@ -5,5 +5,7 @@ function __autoload($class_name)
 {
     require_once 'src/' . $class_name . '.php';
 }
-$shabbosBot = new GroupMeService('shabbos');
-$shabbosBot->sendRawMessage('test');
+
+echo 'shabbos.php';
+//$shabbosBot = new GroupMeService('shabbos');
+//$shabbosBot->sendRawMessage('test');

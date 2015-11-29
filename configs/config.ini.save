@@ -1,0 +1,15 @@
+[config]
+driver = "mysql"
+host = "baruch.db"
+username = "barlane"
+password = "EBu4C+qvBMakB"
+port = "3306"
+database = "birthdays"
+
+email_active = true
+
+[groupme_bot]
+gm_active = 1
+gm_base_url = "https://api.groupme.com/v3/bots/"
+gm_bot_id = "c3326d532c47f3297e48aecaf8"
+gm_gid = "18163884"
