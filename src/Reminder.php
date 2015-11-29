@@ -1,11 +1,4 @@
 <?php
-ini_set('date.timezone', 'America/New_York');
-chdir(dirname(__FILE__));
-function __autoload($class_name)
-{
-    require_once $class_name . '.php';
-}
-new Reminder();
 
 class Reminder {
 
@@ -21,7 +14,7 @@ class Reminder {
 
     public function __construct() {
         $this->db = new Database();
-        $this->gm = new GroupMeService();
+        $this->gm = new GroupMeService('birthday');
         $this->db->connect();
         $this->process();
     }

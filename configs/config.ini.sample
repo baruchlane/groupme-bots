@@ -1,0 +1,19 @@
+[db]
+driver = "mysql"
+host = "localhost"
+username = "username"
+password = "password"
+port = "1234"
+database = "db"
+
+[gm_bots]
+gm_base_url = "url"
+gm_active = 1
+
+[birthday_bot]
+birthday_bot_env = "dev"
+birthday_bot_id_dev = "12345678900sdafdfsa"
+
+[shabbos_bot]
+shabbos_bot_env = "dev"
+shabbos_bot_id_dev = "4352523452fgssdgsdg"
