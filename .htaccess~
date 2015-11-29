@@ -1,0 +1,5 @@
+Options All -Indexes
+SetEnvIf Request_URI /bots/ ispublic=1
+Order Deny,Allow
+Deny from all
+Allow from env=ispublic
