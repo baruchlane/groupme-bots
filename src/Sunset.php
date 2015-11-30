@@ -26,6 +26,10 @@ class Sunset
 
     public function pingBot($message)
     {
+        if ($message == '@zmanimbot hi') {
+            $this->groupMeService->sendRawMessage('Hi!');
+            return;
+        }
         $results = array();
         preg_match('/^@ZmanimBot sunset in (.+)$/i', $message, $results);
         if (isset($results[1])) {
@@ -49,6 +53,6 @@ class Sunset
         if (!$sunset) {
             return 'Sunset error';
         }
-        return 'Sunset for ' . $address . ': ' . $sunset->setTimezone(new \DateTimeZone($timeZoneId))->format('g:m:sa');
+        return 'Sunset for ' . $address . ': ' . $sunset->setTimezone(new \DateTimeZone($timeZoneId))->format('g:i:sa');
     }
 }

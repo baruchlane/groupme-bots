@@ -428,7 +428,10 @@ class CurlWrapper
         }
 
         $this->initOptions();
+        //@todo improve logging
+        file_put_contents('logs/curl.log', 'sent: ' . json_encode($this->options) . PHP_EOL, FILE_APPEND | LOCK_EX);
         $this->response = curl_exec($this->ch);
+        file_put_contents('logs/curl.log', 'response: ' . json_encode($this->response) . PHP_EOL, FILE_APPEND | LOCK_EX);
 
         if ($this->response === false) {
             throw new CurlWrapperCurlException($this->ch);
