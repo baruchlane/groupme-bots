@@ -26,7 +26,8 @@ class Sunset
 
     public function pingBot($message)
     {
-        $results = preg_match('/^@ZmanimBot sunset in (.+)$/i', $message);
+        $results = array();
+        preg_match('/^@ZmanimBot sunset in (.+)$/i', $message, $results);
         if (isset($results[1])) {
             $this->groupMeService->sendRawMessage($this->getSunset($results[1]));
         }
