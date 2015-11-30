@@ -21,7 +21,7 @@ class Sunset
     {
         $this->googleMapsService = new GoogleMapsService();
         $this->sunriseSunsetService = new SunriseSunsetService();
-        $this->groupMeService = new GroupMeService('shabbos');
+        $this->groupMeService = new GroupMeService('zmanim');
     }
 
     public function pingBot($message)
