@@ -25,6 +25,12 @@ class SunriseSunsetService
         return $results['sunset'];
     }
 
+    public function getSunrise($lat, $lng, DateTime $date = null)
+    {
+        $results = $this->getTimes($lat, $lng, $date);
+        return $results['sunrise'];
+    }
+
     public function getTimes($lat, $lng, DateTime $date = null)
     {
         if (!$date) {

@@ -9,7 +9,7 @@ function __autoload($class_name)
 $params = json_decode(file_get_contents("php://input"), true);
 file_put_contents('logs/dev.log', json_encode($params) . PHP_EOL, FILE_APPEND | LOCK_EX);
 if ($params['sender_type'] != 'bot') {
-    $sunsetBot = new Sunset();
-    $sunsetBot->pingBot($params['text']);
+    $zmanimBot = new Zmanim();
+    $zmanimBot->pingBot($params['text']);
 }
 

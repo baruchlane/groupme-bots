@@ -1,6 +1,6 @@
 <?php
 
-class Sunset
+class Zmanim
 {
     /**
      * @var GoogleMapsService
@@ -31,10 +31,33 @@ class Sunset
             return;
         }
         $results = array();
-        preg_match('/^@ZmanimBot sunset in (.+)$/i', $message, $results);
-        if (isset($results[1])) {
-            $this->groupMeService->sendRawMessage($this->getSunset($results[1]));
+        preg_match('/^@ZmanimBot (sunset|sunrise) in (.+)$/i', $message, $results);
+        print_r($results);
+        if (isset($results[2])) {
+            $response = $results[1] === 'sunrise' ?
+                $this->getSunrise($results[2]) :
+                $this->getSunset($results[2]);
+            $this->groupMeService->sendRawMessage($response);
         }
+    }
+
+    public function getSunrise($search)
+    {
+        $location = $this->googleMapsService->getLatLng($search);
+        if (!$location) {
+            return 'Location Error';
+        }
+        $address = $location['formattedAddress'];
+        $timeZoneId = $this->googleMapsService->getTimeZone($location['lat'], $location['lng']);
+        if (!$timeZoneId) {
+            return 'Timezone error';
+        }
+        /** @var DateTime $sunset */
+        $sunrise = $this->sunriseSunsetService->getSunrise($location['lat'], $location['lng']);
+        if (!$sunrise) {
+            return 'Sunrise error';
+        }
+        return 'Sunrise in ' . $address . ': ' . $sunrise->setTimezone(new \DateTimeZone($timeZoneId))->format('g:i:sa');
     }
 
     public function getSunset($search)
@@ -53,6 +76,6 @@ class Sunset
         if (!$sunset) {
             return 'Sunset error';
         }
-        return 'Sunset for ' . $address . ': ' . $sunset->setTimezone(new \DateTimeZone($timeZoneId))->format('g:i:sa');
+        return 'Sunset in ' . $address . ': ' . $sunset->setTimezone(new \DateTimeZone($timeZoneId))->format('g:i:sa');
     }
 }
